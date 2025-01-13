@@ -2,11 +2,6 @@ using NaNMath
 using Test
 using DoubleFloats
 
-
-# https://github.com/JuliaMath/NaNMath.jl/issues/76
-@test_throws MethodError NaNMath.pow(1.0, 1.0+im)
-
-
 for T in (Float64, Float32, Float16, BigFloat)
     for f in (:sin, :cos, :tan, :asin, :acos, :acosh, :atanh, :log, :log2, :log10,
               :log1p)  # Note: do :lgamma separately because it can't handle BigFloat
@@ -65,6 +60,7 @@ end
 @test NaNMath.pow(1.0, 1.0+im) === 1.0 + 0.0im
 @test NaNMath.pow(1.0+im, 1) === 1.0 + 1.0im
 @test NaNMath.pow(1.0+im, 1.0) === 1.0 + 1.0im
+@test NaNMath.pow(1.0, 1.0+im) == 1.0 + 1.0im
 
 @test isnan(NaNMath.sqrt(-5))
 @test NaNMath.sqrt(5) == Base.sqrt(5)
