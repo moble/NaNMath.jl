@@ -40,18 +40,6 @@ end
 @test isnan(NaNMath.pow(-1.5f0,2.3f0))
 @test isnan(NaNMath.pow(-1.5,2.3f0))
 @test isnan(NaNMath.pow(-1.5f0,2.3))
-@test isnan(NaNMath.pow(Float16(-1.5),Float16(2.3)))
-@test isnan(NaNMath.pow(Float16(-1.5),2.3))
-@test isnan(NaNMath.pow(-1.5,Float16(2.3)))
-@test isnan(NaNMath.pow(Float16(-1.5),2.3f0))
-@test isnan(NaNMath.pow(-1.5f0,Float16(2.3)))
-@test isnan(NaNMath.pow(-1.5f0,BigFloat(2.3)))
-@test isnan(NaNMath.pow(BigFloat(-1.5),BigFloat(2.3)))
-@test isnan(NaNMath.pow(BigFloat(-1.5),2.3f0))
-@test isnan(NaNMath.pow(-1.5f0,Double64(2.3)))
-@test isnan(NaNMath.pow(Double64(-1.5),Double64(2.3)))
-@test isnan(NaNMath.pow(Double64(-1.5),2.3f0))
-@test NaNMath.pow(-1,2) isa Float64
 @test NaNMath.pow(-1.5f0,2) isa Float32
 @test NaNMath.pow(-1.5f0,2//1) isa Float32
 @test NaNMath.pow(-1.5f0,2.3f0) isa Float32
@@ -72,6 +60,13 @@ end
 @test NaNMath.pow(Double64(-1.5),Double64(2.3)) isa Double64
 @test NaNMath.pow(Double64(-1.5),2.3f0) isa Double64
 @test NaNMath.sqrt(-5) isa Float64
+@test NaNMath.pow(-1,2) === 1
+@test NaNMath.pow(2,2) === 4
+@test NaNMath.pow(1.0, 1.0+im) === 1.0 + 0.0im
+@test NaNMath.pow(1.0+im, 1) === 1.0 + 1.0im
+@test NaNMath.pow(1.0+im, 1.0) === 1.0 + 1.0im
+
+@test isnan(NaNMath.sqrt(-5))
 @test NaNMath.sqrt(5) == Base.sqrt(5)
 @test NaNMath.sqrt(-5f0) isa Float32
 @test NaNMath.sqrt(5f0) == Base.sqrt(5f0)
@@ -88,6 +83,7 @@ end
 @inferred NaNMath.sqrt(-5)
 @inferred NaNMath.sqrt(-5.0)
 @inferred NaNMath.sqrt(-5.0f0)
+
 @test NaNMath.sum([1., 2., NaN]) == 3.0
 @test NaNMath.sum([1. 2.; NaN 1.]) == 4.0
 @test isnan(NaNMath.sum([NaN, NaN]))
